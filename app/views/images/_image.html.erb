@@ -1,0 +1,21 @@
+<div id="<%= dom_id image %>">
+
+  <div id="image-wrapper" >
+    <% if image.file.attached? %>
+      <%= image_tag image.file %>
+    <% end %>
+    <p>
+      <strong>Name:</strong>
+      <%= image.name %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= image.description %>
+    </p>
+    <div class = "row">
+      <div id="process-img" data-operation="erode" data-id="<%=image.id %>" class="btn btn-primary">Aplicar Erosão</div>
+      <div id="process-img" data-operation="dilated" data-id="<%=image.id %>" class="btn btn-dark">Aplicar Dilatação</div>
+    </div>
+  </div>
+
+</div>

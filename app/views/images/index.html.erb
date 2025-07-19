@@ -1,0 +1,17 @@
+<%= javascript_include_tag "images" %>
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Images" %>
+
+<h2>Images</h2>
+
+<% @images.each do |image| %>
+  <div id="image-wrapper" data-id="<%=image.id %>">
+    <%= render image %>
+    <p>
+      <%= link_to "Show this image", image %>
+    </p>
+  </div>
+<% end %>
+
+<%= link_to "New image", new_image_path %>
