@@ -62,49 +62,29 @@ class ImagesController < ApplicationController
   end
 
   def process_img
-    binding.irb
-    image = Image.find(params[:image_id])
+    # ProcessImageJob.perform_in(1.minutes, params[:image_id], params[:process_name])
+    img = Image.find(params[:image_id])
 
-    # Download the ActiveStorage file to a temp path
-    input_path = Rails.root.join("tmp", "input_#{image.id}.jpg")
-    output_path = Rails.root.join("tmp", "output_#{image.id}.jpg")
-
-    File.open(input_path, 'wb') do |file|
-      file.write(image.file.download)
+    if img.status != "ready"
+      render json: { message: "Image is already being processed", status: 400 }
+      return
     end
 
-    # binding.irb 
-    # Apply the requested process
-    if params[:process_name] == "erode"
-      erode_image(input_path, output_path)
-    else
-      dilate_image(input_path, output_path)
+    img.status = "processing"
+    img.save!
+
+    # binding.irb
+
+    time = 0
+
+    if params[:process_name] == "dilated"
+      ProcessDilateJob.perform_later(params[:image_id])
+      # ProcessDilateJob.set(wait: time.seconds).perform_later(params[:image_id])
+    elsif params[:process_name] == "erode"
+      ProcessErodeJob.perform_later(params[:image_id])
     end
 
-    # Attach processed image back to model (replace or as new attachment)
-    image.file.attach(
-      io: File.open(output_path),
-      filename: "processed_#{image.file.filename}",
-      content_type: image.file.content_type
-    )
-
-    # Clean up temp files
-    File.delete(input_path) if File.exist?(input_path)
-    File.delete(output_path) if File.exist?(output_path)
-
-    render json: { message: "Image processed successfully", status: 200 }
-  end
-
-  def erode_image(input_path, output_path)
-    img = MiniMagick::Image.open(input_path)
-    img.morphology "Erode", "Disk:1"
-    img.write(output_path)
-  end
-
-  def dilate_image(input_path, output_path)
-    img = MiniMagick::Image.open(input_path)
-    img.morphology "Dilate", "Disk:1"
-    img.write(output_path)
+    render json: { message: "Processing started", status: 202, time: "#{time.to_s} segundos"}
   end
 
   private

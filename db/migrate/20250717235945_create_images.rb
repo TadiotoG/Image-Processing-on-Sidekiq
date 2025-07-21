@@ -3,6 +3,7 @@ class CreateImages < ActiveRecord::Migration[8.0]
     create_table :images do |t|
       t.string :name
       t.text :description
+      t.string :status, default: "ready"
 
       t.timestamps
     end

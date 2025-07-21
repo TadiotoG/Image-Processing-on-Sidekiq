@@ -1,0 +1,13 @@
+:concurrency: 1
+
+:queues:
+  - [critical, 2]
+  - [default, 1]
+
+:timeout: 25
+:logfile: ./log/sidekiq.log
+
+# Redis settings
+:redis:
+  :url: redis://localhost:6379/0
+  :namespace: sidekiq

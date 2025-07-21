@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   get 'images/process_img', to: 'images#process_img'
   resources :images
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

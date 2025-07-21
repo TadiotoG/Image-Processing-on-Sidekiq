@@ -1,6 +1,6 @@
 <div id="<%= dom_id image %>">
 
-  <div id="image-wrapper" >
+  <div class="image-wrapper" >
     <% if image.file.attached? %>
       <%= image_tag image.file %>
     <% end %>
@@ -11,6 +11,14 @@
     <p>
       <strong>Description:</strong>
       <%= image.description %>
+    </p>
+    <p class="bg-wrapper">
+      <strong>STATUS: </strong>
+      <% if image.status == "ready" %>
+        <span class="bg-status bg-success" data-bg-id="<%= image.id %>">Pronto</span>
+      <% else %>
+        <span class="bg-status bg-warning" data-bg-id="<%= image.id %>">Processando</span>
+      <% end %>
     </p>
     <div class = "row">
       <div id="process-img" data-operation="erode" data-id="<%=image.id %>" class="btn btn-primary">Aplicar Erosão</div>
