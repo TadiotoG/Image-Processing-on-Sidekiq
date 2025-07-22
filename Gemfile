@@ -3,7 +3,7 @@
 gem 'mini_magick', '5.3.0'
 
 gem 'sidekiq', '8.0.5'
-gem 'redis', '4.8.1'
+gem 'redis', '5.4.1'
 
 source "https://rubygems.org"
 
