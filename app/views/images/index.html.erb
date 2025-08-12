@@ -1,4 +1,7 @@
-<%= javascript_include_tag "images" %>
+<% content_for :extra_js do %>
+  <%= javascript_include_tag "images", defer: true, "data-turbo-track": "reload" %>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Images" %>
