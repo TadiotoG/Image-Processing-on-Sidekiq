@@ -235,4 +235,4 @@ end
 
 ## 🎉 **Boaaa!** Agora sua aplicação está um pouco mais completa 🚀
 
-- Você fez uma aplicação assíncrona e com comunicação partindo tanto do front quando do back
+- Você fez uma aplicação assíncrona e com comunicação partindo tanto do front quanto do back
