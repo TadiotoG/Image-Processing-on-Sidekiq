@@ -1,6 +1,6 @@
 # gem 'opencv', '~> 0.0.7'
 # gem 'ruby-opencv'
-gem 'mini_magick', '5.3.0'
+gem 'mini_magick', '5.3.1'
 
 gem 'sidekiq', '8.0.5'
 gem 'redis', '4.8.1'
